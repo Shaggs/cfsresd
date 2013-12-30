@@ -7,11 +7,12 @@ from clint.textui import puts, colored
 API_URL = "http://urgmsg.net/livenosaas/ajax/update.php"
 
 class Scraper (object):
-	id_stamp = 0 # TODO: somehow get an initial value
+	id_stamp = 0
 
-	def __init__(self, timeout):
+	def __init__(self, timeout, recent_messages=True):
 		self.timeout = timeout
 		self.handlers = []
+		self.recent_messages = recent_messages
 
 	def register_handler(self, handler):
 		self.handlers.append(handler)
@@ -23,7 +24,11 @@ class Scraper (object):
 		if not resp['updated']:
 			return
 
+		old_id_stamp = self.id_stamp
 		self.id_stamp = resp['IDstamp']
+		# if old_id_stamp is 0, this is the first scrape
+		# which will return a whole bunch of recent past messages
+		if not self.recent_messages and old_id_stamp == 0: return
 
 		# Pager messages are returned newest to oldest, we want to
 		# process them oldest to newest
