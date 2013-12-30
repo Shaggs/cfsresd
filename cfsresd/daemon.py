@@ -1,7 +1,7 @@
 """cfsresd daemon
 
 This daemon will send a Pushover notification for every pager message that is
-for CFS Salisbury or Para Group, excluding Para Group Officers.
+for CFS Salisbury, Para Group or R2, excluding Officers, Ops and HQ channels.
 
 It takes two command line arguments: the app ID and the user ID.
 """
@@ -19,9 +19,14 @@ if __name__ == "__main__":
     def handler(msg):
         if 'CFS' not in msg.channel:
             return
-        if 'Salisbury' not in msg.channel and 'Para Group' not in msg.channel:
+        if ('Salisbury' not in msg.channel
+            and 'Para Group' not in msg.channel
+            and 'R2' not in msg.channel):
             return
-        if 'Officers' in msg.channel:
+        if ('Officers' in msg.channel
+            or 'Ops' in msg.channel
+            or 'HQ' in msg.channel
+            or 'Headquarters' in msg.channel):
             return
 
         params = {
