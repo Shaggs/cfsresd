@@ -21,12 +21,16 @@ if __name__ == "__main__":
             return
         if ('Salisbury' not in msg.channel
             and 'Para Group' not in msg.channel
-            and 'R2' not in msg.channel):
+            and 'R2' not in msg.channel
+            and 'Region 2' not in msg.channel):
             return
         if ('Officers' in msg.channel
             or 'Ops' in msg.channel
+            or 'Operations Support' in msg.channel
             or 'HQ' in msg.channel
-            or 'Headquarters' in msg.channel):
+            or 'Headquarters' in msg.channel
+            or 'Person' in msg.channel
+            or 'John Hutchins' in msg.channel):
             return
 
         params = {
