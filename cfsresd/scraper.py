@@ -19,7 +19,13 @@ class Scraper (object):
 		return handler
 
 	def scrape(self):
-		resp = requests.get(API_URL, params={'f': self.id_stamp}).json()
+		try:
+			resp = requests.get(API_URL, params={'f': self.id_stamp}).json()
+		except requests.exceptions.ConnectionError as e:
+			puts("Error encountered when connecting to urgmsg: ", newline=False)
+			puts(colored.red(e.__class__.__name__), newline=False)
+			puts(" " + e.message)
+			return
 
 		if not resp['updated']:
 			return
