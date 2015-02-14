@@ -1,8 +1,12 @@
 # cfsresd
 Daemon that scrapes urgmsg.net for SAGRN pager messages and sends them to Pushover
 
-python daemon#requirements
+python daemon
 
+#requirements
+requests
+lxml
+clint
 
 #to get working
 add your user token to user_token in daemon.py
