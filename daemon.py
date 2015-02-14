@@ -1,36 +1,39 @@
 """cfsresd daemon
 
 This daemon will send a Pushover notification for every pager message that is
-for CFS Salisbury, Para Group or R2, excluding Officers, Ops and HQ channels.
+for your set requirments.
 
 It takes two command line arguments: the app ID and the user ID.
 """
-from cfsresd.scraper import Scraper
+from scraper import Scraper
 import sys
 import requests
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 3
-    app_token = sys.argv[1]
-    user_token = sys.argv[2]
-
+   app_token= "insert app token here "
+   user_token = "insert user token here "
     scraper = Scraper(5, recent_messages=False)
     @scraper.register_handler
     def handler(msg):
+        """ set CFS, SES or MFS"""
         if 'CFS' not in msg.channel:
             return
-        if ('Salisbury' not in msg.channel
-            and 'Para Group' not in msg.channel
-            and 'R2' not in msg.channel
-            and 'Region 2' not in msg.channel):
-            return
-        if ('Officers' in msg.channel
-            or 'Ops' in msg.channel
-            or 'Operations Support' in msg.channel
-            or 'HQ' in msg.channel
-            or 'Headquarters' in msg.channel
-            or 'Person' in msg.channel
-            or 'John Hutchins' in msg.channel):
+        """ type below the filters you would like to set"""
+        
+        if ('' not in msg.channel
+            and '' not in msg.channel
+            and '' not in msg.channel
+            and '' not in msg.channel):
+            return 
+        """ type below the filters you would like to ignore"""
+        
+        if ('' in msg.channel
+            or '' in msg.channel
+            or '' in msg.channel
+            or '' in msg.channel
+            or '' in msg.channel
+            or '' in msg.channel
+            or '' in msg.channel):
             return
 
         params = {
