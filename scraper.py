@@ -23,9 +23,10 @@ class Scraper (object):
 			resp = requests.get(API_URL, params={'f': self.id_stamp}).json()
 		except requests.exceptions.ConnectionError as e:
 			puts("Error encountered when connecting to urgmsg: ", newline=False)
-			puts(colored.red(e.__class__.__name__), newline=False)
-			puts(" " + e.message)
-			return
+			puts(colored.magenta(e.__class__.__name__), newline=False)
+			print ""
+			time.sleep(self.timeout)
+			scraper.run()
 
 		if not resp['updated']:
 			return
@@ -56,7 +57,7 @@ class PagerMessage:
 		self.text = children[1].text
 		# channel starts with `- `
 		self.channel = children[1].getchildren()[0].text[2:]
-		self.response = '*CFSRES' in self.text
+		self.response = 'CFSRES' in self.text
 	def __str__(self):
 		return "{} [{}]: {}".format(self.channel, self.datetime, self.text)
 
